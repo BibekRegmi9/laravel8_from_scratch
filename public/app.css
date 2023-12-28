@@ -9,4 +9,5 @@ body{
 article + article {
     line-height: 1.6;
     margin: 30px;
+    border-top: 1px solid black;
 }
