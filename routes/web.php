@@ -14,17 +14,26 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('posts');
+    return view('posts', [
+        'posts' => Post::all()
+    ]);
 });
 
-Route::get('/posts/{post}', function($slug){
+// method 1
+Route::get('/posts/{post}', function($id){
 
+    return view('post', [
+        'post' => Post::findOrFail($id)
+    ]);
+});
 
+// method 2
+Route::get('/posts/{post}', function(Post $post){
+    return view('post',[
+        'post' => $post
+    ]);
+});
 
-//    if(! file_exists($path = __DIR__ . "/../resources/posts/{$slug}.html")){
-//        return redirect('/');
-//    }
-//    $post = cache()->remember("posts.{$slug}", 1200, fn()=> file_get_contents($path));
-//
-//    return view('post', ['post' => $post]);
-}) -> where('post', '[A-z_\-]+');
+Route::get('/movies', function(){
+    return 'List of movies';
+});
