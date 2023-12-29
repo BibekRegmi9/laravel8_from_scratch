@@ -17,9 +17,18 @@ class Post extends Model
     // Except id all field is fillable
     protected $guarded = ['id'];
 
+    //post belongs to category
     public function category(){
         return $this->belongsTo(Category::class);
+
     }
+
+    // post belongs to user
+    public function user(){
+        return $this->belongsTo(User::class);
+    }
+
+
 
 
 }
