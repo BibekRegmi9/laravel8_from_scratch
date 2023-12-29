@@ -13,9 +13,17 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('posts', [
-        'posts' => Post::all()
+// this will create a N+1 problem
+//Route::get('/', function () {
+//    return view('posts', [
+//        'posts' => Post::all()
+//    ]);
+//});
+
+// to solve the N+1 problem
+Route::get('/', function(){
+   return view('posts', [
+       'posts' => Post::with('category')->get()
     ]);
 });
 
@@ -34,6 +42,9 @@ Route::get('/posts/{post}', function(Post $post){
     ]);
 });
 
-Route::get('/movies', function(){
-    return 'List of movies';
+// route for category
+Route::get('/categories/{category:slug}', function(Category $category){
+    return view('posts', [
+        'posts' => $category->posts
+    ]);
 });
